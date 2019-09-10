@@ -5,9 +5,24 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:#91fb9e;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+div{
+	padding: 5px 10px;
+}
+li{
+	padding: 5px;
+}
+.bgcolor{
+	background-color:#999;
+}
+.statustrue{
+	color:#91fb9e;
+}
+.statusfalse{
+	color:blue;
 }
