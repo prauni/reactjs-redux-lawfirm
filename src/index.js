@@ -25,8 +25,16 @@ class Helloworld extends React.Component{
 		this.updateTask 		= this.updateTask.bind(this);
 		this.addTask 			= this.addTask.bind(this);
 		this.deleteTask 		= this.deleteTask.bind(this);
+		this.editTask 			= this.editTask.bind(this);
 	}
-	
+	editTask(index,newValue){
+		var tasks 		= this.state.tasks;
+		var task		= tasks[index];
+		task['name']	= newValue;
+		this.setState({
+			tasks
+		});
+	}
 	deleteTask(index){
 		let tasks = this.state.tasks;
 		tasks.splice(index,1);
@@ -91,7 +99,9 @@ class Helloworld extends React.Component{
 												clickHandler={this.changeStatus} 
 												index={index} 
 												details={task}
-												deleteTask={this.deleteTask} />
+												deleteTask={this.deleteTask} 
+												editTask={this.editTask} 
+												/>
 							})
 						}
 						</ul>
