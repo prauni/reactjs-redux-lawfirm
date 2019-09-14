@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import TodoItem from './components/TodoItem.js';
 import TodoForm from './components/TodoForm.js';
+import $ from 'jquery';
 
 class Helloworld extends React.Component{
 	constructor(){
@@ -10,6 +11,7 @@ class Helloworld extends React.Component{
 		this.name = "Developer..";
 		this.state = {
 			course:"React",
+			users:[],
 			count:0,
 			tasks:[
 				{name:"PHP",status:false},
@@ -27,6 +29,18 @@ class Helloworld extends React.Component{
 		this.deleteTask 		= this.deleteTask.bind(this);
 		this.editTask 			= this.editTask.bind(this);
 	}
+	
+	componentDidMount(){
+		$.ajax({
+			url:'https://api.coinmarketcap.com/v1/ticker/?limit=5',
+			success:(data)=>{
+				this.setState({
+					users:data
+				})
+			}
+		})
+	}
+	
 	editTask(index,newValue){
 		var tasks 		= this.state.tasks;
 		var task		= tasks[index];
@@ -81,12 +95,20 @@ class Helloworld extends React.Component{
 	}
 
 	render(){
+		const {users} = this.state;//const users = this.state.users;
 		return (
 			<div>
 				<div className="bgcolor">
 					<h4>
 						{this.state.course} Counter :: {this.state.count} &nbsp;
 						<button onClick={this.incrementCounter}> Add Count </button><hr />
+						<ul>
+							{
+								users.map((user)=>{
+									return <li key={user.id}>{user.name} : {user.price_usd}</li>
+								})
+							}
+						</ul>
 						<TodoForm 
 							currentTask={this.state.currentTask}
 							updateTask={this.updateTask}

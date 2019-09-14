@@ -14,8 +14,10 @@ code {
 div{
 	padding: 5px 10px;
 }
-li{
+li, form{
 	padding: 5px;
+	width:400px;
+	border:1px solid #91fb9e;
 }
 .bgcolor{
 	background-color:#999;
@@ -25,4 +27,8 @@ li{
 }
 .statusfalse{
 	color:blue;
+}
+.floatright{
+	float:right;
+	margin:0 5px;
 }

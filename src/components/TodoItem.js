@@ -1,4 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import '../index.css';
+
 class TodoItem extends React.Component{
 	constructor(props){
 		super(props);
@@ -25,25 +28,28 @@ class TodoItem extends React.Component{
 		return(
 			<form onSubmit={this.updateItem}>
 				<input type="text" 
-						ref={(value)=>{this.input = value}}
+						ref={(value)=>this.input = value}
 						defaultValue={this.props.details.name} />
-				<button type="submit">Update</button>
+				<button type="submit" className={'floatright'}>Update</button>
 			</form>
 		)
 	}
 	renderItem(){
+		var flri = {color: 'white'};
 		return(
 			<li onClick={()=>{this.props.clickHandler(this.props.index)}} 
 				className={this.props.details.status?'statustrue':'statusfalse'}>
-				{this.props.details.name} 
+				{this.props.details.name} &nbsp; &nbsp; 
 				<button onClick={(evt)=>{
-					evt.stopPropagation();
-					this.props.deleteTask(this.props.index)
-				}}>Delete</button> 
+							evt.stopPropagation();
+							this.props.deleteTask(this.props.index) 
+						}}
+						className={'floatright'}>Delete </button> &nbsp; &nbsp; 
 				<button onClick={(evt)=>{
-					evt.stopPropagation();
-					this.toggleState()
-				}}>Edit</button> 
+							evt.stopPropagation();
+							this.toggleState()
+						}}
+						style={{float:"right"}}>Edit</button> 
 			</li>
 		)
 	}
