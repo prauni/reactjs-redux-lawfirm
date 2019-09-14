@@ -32,7 +32,7 @@ class Helloworld extends React.Component{
 	
 	componentDidMount(){
 		$.ajax({
-			url:'https://api.coinmarketcap.com/v1/ticker/?limit=5',
+			url:'https://api.coinmarketcap.com/v1/ticker/?limit=10',
 			success:(data)=>{
 				this.setState({
 					users:data
