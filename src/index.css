@@ -20,7 +20,7 @@ li, form{
 	border:1px solid #91fb9e;
 }
 .bgcolor{
-	background-color:#999;
+	background-color:#15b5c5;
 }
 .statustrue{
 	color:#91fb9e;
@@ -31,4 +31,15 @@ li, form{
 .floatright{
 	float:right;
 	margin:0 5px;
+}
+.inlineList{
+   display: flex;
+   flex-direction: row;
+   /* Below sets up your display method: flex-start|flex-end|space-between|space-around */
+   justify-content: flex-start; 
+   /* Below removes bullets and cleans white-space */
+   list-style: none;
+   padding: 0;
+   /* Bonus: forces no word-wrap */
+   white-space: nowrap;
 }

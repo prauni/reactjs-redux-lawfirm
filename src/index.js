@@ -5,6 +5,20 @@ import TodoItem from './components/TodoItem.js';
 import TodoForm from './components/TodoForm.js';
 import $ from 'jquery';
 
+import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
+const Home = () => (
+	<h3>Home</h3>
+)
+const Crypo = () => (
+	<h3>Crypo-Currency</h3>
+)
+const Links = () => (
+	<ul className="inlineList">
+		<li><Link to="/">Home</Link></li>
+		<li><Link to="/Crypo">Crypo</Link></li>
+	</ul>
+)
+
 class Helloworld extends React.Component{
 	constructor(){
 		super();
@@ -16,9 +30,7 @@ class Helloworld extends React.Component{
 			tasks:[
 				{name:"PHP",status:false},
 				{name:"MySQL",status:false},
-				{name:"CodeIgniter",status:false},
-				{name:"Laravel",status:false},
-				{name:"React",status:false}
+				{name:"CodeIgniter",status:false}
 			],
 			currentTask:''
 		};
@@ -32,7 +44,7 @@ class Helloworld extends React.Component{
 	
 	componentDidMount(){
 		$.ajax({
-			url:'https://api.coinmarketcap.com/v1/ticker/?limit=10',
+			url:'https://api.coinmarketcap.com/v1/ticker/?limit=2',
 			success:(data)=>{
 				this.setState({
 					users:data
@@ -97,39 +109,47 @@ class Helloworld extends React.Component{
 	render(){
 		const {users} = this.state;//const users = this.state.users;
 		return (
-			<div>
-				<div className="bgcolor">
-					<h4>
-						{this.state.course} Counter :: {this.state.count} &nbsp;
-						<button onClick={this.incrementCounter}> Add Count </button><hr />
-						<ul>
+			<Router>
+				<div>
+					<div className="bgcolor">
+						<Links />
+						<Route exact path="/" component={Home} />
+						<Route path="/Crypo" component={Crypo} />
+						<div style={{float:"left",width:"50%"}} className="bgcolor">						
+							{this.state.course} Counter :: {this.state.count} &nbsp;
+							<button onClick={this.incrementCounter}> Add Count </button><hr />
+							
+							<ul>
+								{
+									users.map((user)=>{
+										return <li key={user.id}>{user.name} : {user.price_usd}</li>
+									})
+								}
+							</ul>
+						</div>
+						<div style={{float:"left",width:"45%"}} className="bgcolor">
+							<TodoForm 
+								currentTask={this.state.currentTask}
+								updateTask={this.updateTask}
+								addTask={this.addTask}
+							/>
+							<ul>
 							{
-								users.map((user)=>{
-									return <li key={user.id}>{user.name} : {user.price_usd}</li>
+								this.state.tasks.map((task,index)=>{
+									return <TodoItem key={task.name} 
+													clickHandler={this.changeStatus} 
+													index={index} 
+													details={task}
+													deleteTask={this.deleteTask} 
+													editTask={this.editTask} 
+													/>
 								})
 							}
-						</ul>
-						<TodoForm 
-							currentTask={this.state.currentTask}
-							updateTask={this.updateTask}
-							addTask={this.addTask}
-						/>
-						<ul>
-						{
-							this.state.tasks.map((task,index)=>{
-								return <TodoItem key={task.name} 
-												clickHandler={this.changeStatus} 
-												index={index} 
-												details={task}
-												deleteTask={this.deleteTask} 
-												editTask={this.editTask} 
-												/>
-							})
-						}
-						</ul>
-					</h4>
+							</ul>
+						</div>
+					</div>
 				</div>
-			</div>
+				</Router>
 		)	
 	}
 }
