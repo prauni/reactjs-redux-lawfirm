@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import $ from 'jquery';
+import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import TodoItem from './components/TodoItem.js';
 import TodoForm from './components/TodoForm.js';
-import $ from 'jquery';
+import Login from './components/Login.js';
+import Admin from './components/Admin.js';
+import Logout from './components/Logout.js';
 
-import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
 const Home = () => (
 	<h3>Home</h3>
 )
@@ -16,6 +19,9 @@ const Links = () => (
 	<ul className="inlineList">
 		<li><Link to="/">Home</Link></li>
 		<li><Link to="/Crypo">Crypo</Link></li>
+		<li><Link to="/Login">Login</Link></li>
+		<li><Link to="/Admin">Admin</Link></li>
+		<li><Link to="/Logout">Logout</Link></li>
 	</ul>
 )
 
@@ -115,6 +121,9 @@ class Helloworld extends React.Component{
 						<Links />
 						<Route exact path="/" component={Home} />
 						<Route path="/Crypo" component={Crypo} />
+						<Route path="/Login" component={Login} />
+						<Route path="/Admin" component={Admin} />
+						<Route path="/Logout" component={Logout} />
 						<div style={{float:"left",width:"50%"}} className="bgcolor">						
 							{this.state.course} Counter :: {this.state.count} &nbsp;
 							<button onClick={this.incrementCounter}> Add Count </button><hr />
