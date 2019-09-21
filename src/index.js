@@ -1,20 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
+import {BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './index.css';
 import $ from 'jquery';
-import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import TodoItem from './components/TodoItem.js';
 import TodoForm from './components/TodoForm.js';
 import Login from './components/Login.js';
 import Admin from './components/Admin.js';
 import Logout from './components/Logout.js';
 
+const NotFound = () => (
+	<h3>NotFound : 404 Page</h3>
+)
+
 const Home = () => (
-	<h3>Home</h3>
+	<h3>Home Page</h3>
 )
 const Crypo = () => (
 	<h3>Crypo-Currency</h3>
 )
+
+
 const Links = () => (
 	<ul className="inlineList">
 		<li><Link to="/">Home</Link></li>
@@ -38,7 +45,8 @@ class Helloworld extends React.Component{
 				{name:"MySQL",status:false},
 				{name:"CodeIgniter",status:false}
 			],
-			currentTask:''
+			currentTask:'',
+			isModalActive:false
 		};
 		this.incrementCounter 	= this.incrementCounter.bind(this);
 		this.changeStatus 		= this.changeStatus.bind(this);
@@ -46,6 +54,16 @@ class Helloworld extends React.Component{
 		this.addTask 			= this.addTask.bind(this);
 		this.deleteTask 		= this.deleteTask.bind(this);
 		this.editTask 			= this.editTask.bind(this);
+	}
+	
+	componentWillMount(){
+		Modal.setAppElement('body')
+	}
+
+	showModal = () =>{
+		this.setState({
+			isModalActive:!this.state.isModalActive
+		});
 	}
 	
 	componentDidMount(){
@@ -67,6 +85,7 @@ class Helloworld extends React.Component{
 			tasks
 		});
 	}
+	
 	deleteTask(index){
 		let tasks = this.state.tasks;
 		tasks.splice(index,1);
@@ -101,7 +120,7 @@ class Helloworld extends React.Component{
 			count:++count
 		});
 	}
-			
+	
 	changeStatus(index){
 		console.log(this.state.tasks[index]);
 		var tasks 	= this.state.tasks;
@@ -119,11 +138,22 @@ class Helloworld extends React.Component{
 				<div>
 					<div className="bgcolor">
 						<Links />
-						<Route exact path="/" component={Home} />
-						<Route path="/Crypo" component={Crypo} />
-						<Route path="/Login" component={Login} />
-						<Route path="/Admin" component={Admin} />
-						<Route path="/Logout" component={Logout} />
+						<Switch>
+							<Route exact path="/" component={Home} />
+							<Route path="/Crypo" component={Crypo} />
+							<Route path="/Login" component={Login} />
+							<Route path="/Admin" component={Admin} />
+							<Route path="/Logout" component={Logout} />
+							<Route component={NotFound} />
+						</Switch>
+						<hr />
+							<button onClick={this.showModal}>Show Modal</button>
+							<Modal 
+								isOpen={this.state.isModalActive}>
+								<h3 style={{color:"#F00"}}>Hello World From Modal</h3>
+								<button onClick={this.showModal}>Close Modal</button>
+							</Modal>
+						<hr />
 						<div style={{float:"left",width:"50%"}} className="bgcolor">						
 							{this.state.course} Counter :: {this.state.count} &nbsp;
 							<button onClick={this.incrementCounter}> Add Count </button><hr />
