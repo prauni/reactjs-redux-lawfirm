@@ -34,6 +34,8 @@ export default class Login extends Component{
 		const formData = new FormData();
 		formData.append('prodID',7);
 		const apiUrl = 'http://localhost/test.php';
+		//const apiUrl = 'http://jsonplaceholder.typicode.com/posts';		
+		/*
 		const options = {
 			method:'GET',
 			body:formData,
@@ -50,21 +52,23 @@ export default class Login extends Component{
 					console.log('Ajax fetch error.... ')
 				}				
 			)
-		/*
-		'http://localhost/test.php'
 		*/
+		let fdata = "username="+username+"&password="+password;
 		$.ajax({
-			url:'http://jsonplaceholder.typicode.com/posts',
-			success:(data)=>{
+			url:apiUrl,
+			type: "POST",
+			data: fdata,
+			success:(response)=>{
 				console.log('Ajax success ');
-				//console.log(data)
+				let dataval = $.parseJSON(response);					
+				console.log(dataval['time']+':::'+dataval['username']);
 			},
 			error:(err)=>{
 				console.log('Ajax error ')
 			}
 		})
 
-		if(username === "X" && password === "Y"){
+		if(username === "XX" && password === "Y"){
 			localStorage.setItem("token","helloworld")
 			this.setState({
 				loggedIn:true
