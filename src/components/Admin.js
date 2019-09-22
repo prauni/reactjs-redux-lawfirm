@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
 
-export default class Admin extends Component{
+class Admin extends Component{
 	constructor(props){
 		super(props)
 		const token = localStorage.getItem("token")
@@ -10,7 +11,8 @@ export default class Admin extends Component{
 			loggedIn = false
 		}
 		this.state = {
-			loggedIn
+			loggedIn,
+			myname:props.myname
 		}
 	}
 	
@@ -20,9 +22,16 @@ export default class Admin extends Component{
 		}
 		return (
 			<div>
-				<h1>This is an Admin</h1>
+				<h1>Redux using Component :: This is admin page of {this.state.myname}</h1>
 				<Link to="/logout">Logout</Link>
 			</div>
 		)
 	}
+
 }
+const mapStateToProps = (state)=>{
+	return {
+		myname:state.name
+	}
+}
+export default connect(mapStateToProps)(Admin)

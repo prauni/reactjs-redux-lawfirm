@@ -4,11 +4,22 @@ import Modal from 'react-modal';
 import {BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './index.css';
 import $ from 'jquery';
+import App from './App.js';
 import TodoItem from './components/TodoItem.js';
 import TodoForm from './components/TodoForm.js';
 import Login from './components/Login.js';
 import Admin from './components/Admin.js';
 import Logout from './components/Logout.js';
+
+
+
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reducer from './reducers/reducer';
+const store = createStore(reducer);
+
+
+
 
 const NotFound = () => (
 	<h3>NotFound : 404 Page</h3>
@@ -18,9 +29,8 @@ const Home = () => (
 	<h3>Home Page</h3>
 )
 const Crypo = () => (
-	<h3>Crypo-Currency</h3>
+	<h3>Crypo-Currency</h3>	
 )
-
 
 const Links = () => (
 	<ul className="inlineList">
@@ -146,8 +156,9 @@ class Helloworld extends React.Component{
 							<Route path="/Logout" component={Logout} />
 							<Route component={NotFound} />
 						</Switch>
+						<Route component={App} />
 						<hr />
-							<button onClick={this.showModal}>Show Modal</button>
+							<button onClick={this.showModal}>Show Modal...</button>
 							<Modal 
 								isOpen={this.state.isModalActive}>
 								<h3 style={{color:"#F00"}}>Hello World From Modal</h3>
@@ -192,7 +203,7 @@ class Helloworld extends React.Component{
 		)	
 	}
 }
-ReactDOM.render(<Helloworld />,document.getElementById('root'))
+ReactDOM.render(<Provider store={store}><Helloworld /></Provider>,document.getElementById('root'))
 
 
 
