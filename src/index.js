@@ -13,13 +13,12 @@ import Logout from './components/Logout.js';
 
 
 
-import {createStore} from 'redux';
+import {createStore, applyMiddleware,compose} from 'redux';
+import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import reducer from './reducers/reducer';
+
 const store = createStore(reducer);
-
-
-
 
 const NotFound = () => (
 	<h3>NotFound : 404 Page</h3>
