@@ -5,10 +5,12 @@ import {BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './index.css';
 import $ from 'jquery';
 import App from './App.js';
+import Childapp from './components/Childapp.js';
 import TodoItem from './components/TodoItem.js';
 import TodoForm from './components/TodoForm.js';
 import Login from './components/Login.js';
 import Admin from './components/Admin.js';
+import Profile from './components/Profile.js';
 import Logout from './components/Logout.js';
 
 
@@ -155,7 +157,9 @@ class Helloworld extends React.Component{
 							<Route path="/Logout" component={Logout} />
 							<Route component={NotFound} />
 						</Switch>
+						<Route component={Profile} />
 						<Route component={App} />
+						<Route component={Childapp} />
 						<hr />
 							<button onClick={this.showModal}>Show Modal...</button>
 							<Modal 

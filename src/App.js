@@ -2,19 +2,20 @@ import React from 'react';
 import './App.css';
 import {connect} from 'react-redux';
 
-const mapStateToProps = (state)=>{
-		return {
-			myname:state.name
-		}
-	}
 
 function App(props) {
   return (
-    <div className="App">
-      <h3>Redux using Function :: My name is {props.myname} :: </h3>
-	  <button onClick={()=>{props.changeName("Suresh")}}>Change Name</button>
+    <div className="App" style={{"text-align":"left",}}>
+      <h3 style={{"display":"inline-block",}}>Redux using Function Component ( App ):: My name is {props.myname} :: </h3>
+	  <button onClick={()=>{props.changeName("Suresh")}}>Change Name to Suresh</button>
     </div>
   );
+}
+
+const mapStateToProps = (state)=>{
+	return {
+		myname:state.name
+	}
 }
 
 const mapDispatchToProps = (dispatch)=>{
