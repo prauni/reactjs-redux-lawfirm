@@ -12,8 +12,7 @@ import Login from './components/Login.js';
 import Admin from './components/Admin.js';
 import Profile from './components/Profile.js';
 import Logout from './components/Logout.js';
-
-
+import logo from './logo.jpg';
 
 import {createStore, applyMiddleware,compose} from 'redux';
 import thunk from 'redux-thunk';
@@ -149,6 +148,7 @@ class Helloworld extends React.Component{
 				<div>
 					<div className="bgcolor">
 						<Links />
+						<img src={logo} alt="MyLogo" style={{"width":"300px"}} />
 						<Switch>
 							<Route exact path="/" component={Home} />
 							<Route path="/Crypo" component={Crypo} />
