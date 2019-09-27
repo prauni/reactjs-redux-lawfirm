@@ -148,7 +148,7 @@ class Helloworld extends React.Component{
 				<div>
 					<div className="bgcolor">
 						<Links />
-						<img src={logo} alt="MyLogo" style={{"width":"300px"}} />
+						<img src={logo} alt="MyLogo" title="MyLogo" style={{"width":"300px"}} />
 						<Switch>
 							<Route exact path="/" component={Home} />
 							<Route path="/Crypo" component={Crypo} />
