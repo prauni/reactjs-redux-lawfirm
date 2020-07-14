@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import $ from 'jquery';
+import {connect} from 'react-redux';
 
-export default class Login extends Component{
+class Login extends Component{
 	constructor(props){
 		super(props)
 		const token = localStorage.getItem("token")
@@ -16,6 +17,8 @@ export default class Login extends Component{
 			password:'Y',
 			loggedIn
 		}
+		
+		
 		this.onChange 	= this.onChange.bind(this)
 		this.submitForm = this.submitForm.bind(this)
 	}
@@ -33,7 +36,7 @@ export default class Login extends Component{
 		
 		const formData = new FormData();
 		formData.append('prodID',7);
-		const apiUrl = 'http://localhost/test.php';
+		const apiUrl = 'http://localhost/projects/reactjs/app03reduxcms/php/login.php';
 		//const apiUrl = 'http://jsonplaceholder.typicode.com/posts';		
 		/*
 		const options = {
@@ -53,6 +56,8 @@ export default class Login extends Component{
 				}				
 			)
 		*/
+		this.props.changeAuth(11);
+				
 		let fdata = "username="+username+"&password="+password;
 		$.ajax({
 			url:apiUrl,
@@ -79,18 +84,66 @@ export default class Login extends Component{
 	
 	render(){
 		if(this.state.loggedIn){
-			return <Redirect to="/Admin" />
+			return <Redirect to="/admin" />
 		}
 			
 		return (
-			<div>
-				<h1>Login Page</h1>
-				<form onSubmit={this.submitForm}>
+	<div id="contents">
+		<div class="clearfix">
+			<div class="sidebar">
+				<div>
+					<h2>Contact Info</h2>
+					<ul class="contact">
+						<li>
+							<p>
+								<span class="home"></span> <em>Manes Winchester<br/> Family Law Firm</em> the address city, state 1111
+							</p>
+						</li>
+						<li>
+							<p class="phone">
+								Phone: (+20) 000 222 999
+							</p>
+						</li>
+						<li>
+							<p class="fax">
+								Fax: (+20) 000 222 988
+							</p>
+						</li>
+						<li>
+							<p class="mail">
+								Email: info@freewebsitetemplates.com
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div className="main" style={{height:'auto',minHeight:'auto'}}>
+				<h1>Login</h1>
+				<form onSubmit={this.submitForm} className="message">
+					<label>Username</label>
 					<input name="username" value={this.state.username} onChange={this.onChange} type="text" placeholder="Username" /> <br />
+					<label>Password</label>
 					<input name="password" value={this.state.password} onChange={this.onChange} type="text" placeholder="Password" /> <br />
 					<input type="submit" value="Login" />
-				</form>
+				</form>				
 			</div>
+		</div>
+	</div>
 		)
 	}
 }
+
+const mapStateToProps = (state)=>{
+	return {
+		loggedIn:'BB'
+	}
+}
+const mapDispatchToProps = (dispatch)=>{
+	return {
+		changeAuth:(status)=>{dispatch({type:'CHANGE_AUTH',payload:status})},
+		changeName:(name)=>{dispatch({type:'CHANGE_NAME',payload:'N021'})}
+	}
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Login)
+
+

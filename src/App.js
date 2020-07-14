@@ -1,15 +1,18 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react';
+//import './App.css';
 import {connect} from 'react-redux';
 
-
-function App(props) {
-  return (
-    <div className="App" style={{"text-align":"left",}}>
-      <h3 style={{"display":"inline-block",}}>Redux using Function Component ( App ):: My name is {props.myname} :: </h3>
-	  <button onClick={()=>{props.changeName("Suresh")}}>Change Name to Suresh</button>
-    </div>
-  );
+class App extends Component{
+	render(props){
+		
+		  return (
+			<div className="App" style={{textAlign:"left"}}>
+			  <h3 style={{"display":"inline-block",}}>Redux using Function Component ( App ):: My name is {props.myname} :: </h3>
+			  <button onClick={()=>{props.changeName("Suresh")}}>Change Name to Suresh</button>
+			</div>
+		  );
+		
+	}
 }
 
 const mapStateToProps = (state)=>{
@@ -23,11 +26,5 @@ const mapDispatchToProps = (dispatch)=>{
 	changeName:(name)=>{dispatch({type:'CHANGE_NAME',payload:name})}
 	}
 }	
+
 export default connect(mapStateToProps,mapDispatchToProps)(App);
-
-
-
-
-
-
-

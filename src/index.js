@@ -2,9 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import {BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import './index.css';
+//import './index.css';
 import $ from 'jquery';
 import App from './App.js';
+import Homepage from './components/Homepage.js';
+import Aboutus from './components/Aboutus.js';
+import Contactus from './components/Contactus.js';
+import News from './components/News.js';
+import Lawyers from './components/Lawyers.js';
+import Practices from './components/Practices.js';
+
+import Header from './components/Header.js';
+import Footer from './components/Footer.js';
 import Childapp from './components/Childapp.js';
 import TodoItem from './components/TodoItem.js';
 import TodoForm from './components/TodoForm.js';
@@ -56,7 +65,9 @@ class Helloworld extends React.Component{
 				{name:"CodeIgniter",status:false}
 			],
 			currentTask:'',
-			isModalActive:false
+			isModalActive:false,
+			myname:'Robin',
+			props:'DD'
 		};
 		this.incrementCounter 	= this.incrementCounter.bind(this);
 		this.changeStatus 		= this.changeStatus.bind(this);
@@ -78,13 +89,30 @@ class Helloworld extends React.Component{
 	
 	componentDidMount(){
 		$.ajax({
-			url:'https://api.coinmarketcap.com/v1/ticker/?limit=2',
-			success:(data)=>{
+			url:'http://localhost/projects/reactjs/app03redux/php/data.php',
+			success:(res)=>{
+				console.log('helllo');
+				console.log(res);
+				console.log('India');
+				res = JSON.parse(res);
+				res.map((val)=>{
+					console.log(val);
+				});
 				this.setState({
-					users:data
+					users:res
 				})
 			}
-		})
+		});
+		$.ajax({
+			url:'http://localhost/projects/reactjs/app03redux/php/content.php',
+			success:(res)=>{
+				//alert(99);
+				res = JSON.parse(res);
+				this.setState({
+					course:res.msg
+				})
+			}
+		});
 	}
 	
 	editTask(index,newValue){
@@ -140,8 +168,28 @@ class Helloworld extends React.Component{
 			tasks:tasks
 		})
 	}
-
+	
 	render(){
+		return(
+			<div>
+				<Header />
+				<Router>
+					<Route exact path="/" component={Homepage} />
+					<Route path="/about" component={Aboutus} />
+					<Route path="/contact" component={Contactus} />
+					<Route path="/practices" component={Practices} />
+					<Route path="/lawyers" component={Lawyers} />
+					<Route path="/news" component={News} />
+					<Route path="/Admin" component={Admin} />
+					<Route path="/login" component={Login} />
+					<Route path="/logout" component={Logout} />
+				</Router>
+				<Footer />
+			</div>
+		)
+	}
+	
+	render01(){
 		const {users} = this.state;//const users = this.state.users;
 		return (
 			<Router>
@@ -170,7 +218,7 @@ class Helloworld extends React.Component{
 						<hr />
 						<div style={{float:"left",width:"50%"}} className="bgcolor">						
 							{this.state.course} Counter :: {this.state.count} &nbsp;
-							<button onClick={this.incrementCounter}> Add Count </button><hr />
+							<button onClick={this.incrementCounter}> Add Countdown </button><hr />
 							
 							<ul>
 								{
