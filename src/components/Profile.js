@@ -11,7 +11,7 @@ class Profile extends Component{
 		}
 		this.state = {
 			loggedIn,
-			myname:props.myname
+			myname:props.myname+'54'
 		}
 	}
 
