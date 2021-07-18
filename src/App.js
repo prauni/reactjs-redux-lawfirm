@@ -11,7 +11,6 @@ class App extends Component{
 			  <button onClick={()=>{props.changeName("Suresh")}}>Change Name to Suresh</button>
 			</div>
 		  );
-		
 	}
 }
 
